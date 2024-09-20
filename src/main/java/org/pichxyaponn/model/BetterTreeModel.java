@@ -3,6 +3,7 @@ package org.pichxyaponn.model;
 import java.util.*;
 
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 
 public class BetterTreeModel {
     private final Set<Material> treeBlocks;
@@ -21,6 +22,20 @@ public class BetterTreeModel {
 
     public float getToolDelay(Material material) {
         return toolDelays.getOrDefault(material, 3.0f);
+    }
+
+    public List<Block> getAdjacentBlocks(Block block) {
+        List<Block> adjacentBlocks = new ArrayList<>();
+        for (int x = -1; x < 2; x++) {
+            for (int y = 0; y < 2; y++) {
+                for (int z = -1; z < 2; z++) {
+                    if (x != 0 || y != 0 || z != 0) {
+                        adjacentBlocks.add(block.getRelative(x, y, z));
+                    }
+                }
+            }
+        }
+        return adjacentBlocks;
     }
 
     private void initializeTreeBlocks() {

@@ -93,13 +93,13 @@ public class BetterTreeController implements Listener {
             public void run() {
                 if (!blocksToCut.isEmpty()) {
                     Block block = blocksToCut.poll();
-                    if (block != null) {
+                    if (block != null)
                         processBlock(block);
-                    }
                 }
 
                 if (isTreeCompletelyFelled()) {
                     view.sendMessage(player, "Tree cut completely! Blocks processed: " + blocksProcessed);
+                    view.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);
                     this.cancel();
                 }
             }
@@ -109,7 +109,14 @@ public class BetterTreeController implements Listener {
                 blocksProcessed++;
                 view.playSound(player, Sound.BLOCK_WOOD_BREAK, 1.0f, 1.0f);
 
-                if (tool != null) {
+                List<Block> newBlocks = model.getAdjacentBlocks(block).stream()
+                        .filter(b -> b.getType() == treeType && !processedBlocks.contains(b))
+                        .collect(Collectors.toList());
+
+                blocksToCut.addAll(newBlocks);
+                processedBlocks.addAll(newBlocks);
+
+                if (tool != null && !isTreeCompletelyFelled()) {
                     int randomChance = new Random().nextInt(100);
                     if (tool.containsEnchantment(Enchantment.UNBREAKING)) {
                         int damageChance = (int) (100d / ((double) tool.getEnchantmentLevel(Enchantment.UNBREAKING) + 1d));
@@ -141,27 +148,6 @@ public class BetterTreeController implements Listener {
                             break;
                     }
                 }
-
-                List<Block> newBlocks = getAdjacentBlocks(block).stream()
-                        .filter(b -> b.getType() == treeType && !processedBlocks.contains(b))
-                        .collect(Collectors.toList());
-
-                blocksToCut.addAll(newBlocks);
-                processedBlocks.addAll(newBlocks);
-            }
-
-            private List<Block> getAdjacentBlocks(Block block) {
-                List<Block> adjacentBlocks = new ArrayList<>();
-                for (int x = -1; x <= 1; x++) {
-                    for (int y = 0; y <= 1; y++) {
-                        for (int z = -1; z <= 1; z++) {
-                            if (x != 0 || y != 0 || z != 0) {
-                                adjacentBlocks.add(block.getRelative(x, y, z));
-                            }
-                        }
-                    }
-                }
-                return adjacentBlocks;
             }
 
             private boolean isTreeCompletelyFelled() {

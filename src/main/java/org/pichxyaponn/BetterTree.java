@@ -6,7 +6,6 @@ import org.pichxyaponn.controller.BetterTreeController;
 import org.pichxyaponn.model.BetterTreeModel;
 
 public final class BetterTree extends JavaPlugin {
-    private BetterTreeController betterTreeController;
 
     @Override
     public void onEnable() {
@@ -15,7 +14,7 @@ public final class BetterTree extends JavaPlugin {
 
         BetterTreeModel betterTreeModel = new BetterTreeModel();
         BetterTreeView betterTreeView = new BetterTreeView();
-        betterTreeController = new BetterTreeController(this, betterTreeModel, betterTreeView);
+        BetterTreeController betterTreeController = new BetterTreeController(this, betterTreeModel, betterTreeView);
         betterTreeController.registerEvents();
     }
 
