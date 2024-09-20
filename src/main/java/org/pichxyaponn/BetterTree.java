@@ -1,7 +1,7 @@
 package org.pichxyaponn;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.pichxyaponn.View.BetterTreeView;
+import org.pichxyaponn.view.BetterTreeView;
 import org.pichxyaponn.controller.BetterTreeController;
 import org.pichxyaponn.model.BetterTreeModel;
 

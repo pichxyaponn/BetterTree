@@ -1,4 +1,4 @@
-package org.pichxyaponn.View;
+package org.pichxyaponn.view;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
