@@ -1,0 +1,6 @@
+name: BetterTree
+version: '${project.version}'
+main: org.pichxyaponn.BetterTree
+api-version: '1.21'
+authors: [pichxyaponn]
+description: BetterTree
